@@ -1,11 +1,11 @@
 import React from "react";
-import "./App.css";
+import css from "./App.module.css";
 
 class NotFound extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className={css.App}>
+        <header className={css.App_header}>
           <p>
             <code>Sorry Not Found.</code>
           </p>

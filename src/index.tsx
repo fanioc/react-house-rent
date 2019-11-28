@@ -1,21 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// react component imported
+
+// import react component.
 import "./index.css"; // common css
-import App from "./App";
+import Admin from "./Admin/index";
+import Home from "./Home/index";
+import HomeManage from "./HomeManage/index";
 import Notfound from "./Notfound";
 
-// react router imported.
-import { Router, Route } from "react-router-dom";
+// import react router.
+import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 const browserHistory = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route exact path="/" component={App} />
-    <Route exact path="about" component={App} />
-    <Route exact path="inbox" component={App} />
-    <Route exact path="*" component={Notfound} />
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/admin" component={Admin} />
+      <Route exact path="/manage" component={HomeManage} />
+      <Route exact path="*" component={Notfound} />
+    </Switch>
   </Router>,
   document.getElementById("root")
 );
