@@ -1,9 +1,9 @@
 import React from "react";
 
-class StaffIndex extends React.Component {
+class AdminIndex extends React.Component {
   render() {
-    return <p>后台管理首页</p>;
+    return <div>员工后台管理首页</div>;
   }
 }
 
-export default StaffIndex;
+export default AdminIndex;

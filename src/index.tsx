@@ -1,8 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// import react component.
+// import commoncss and boostrap.
 import "./index.css"; // common css
+import "bootstrap/dist/css/bootstrap.min.css";
+
+// import react component.
+import App from "./App";
 import Admin from "./Admin/index";
 import Home from "./Home/index";
 import HomeManage from "./HomeManage/index";
@@ -15,6 +19,7 @@ const browserHistory = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={browserHistory}>
+    <App />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/admin" component={Admin} />
