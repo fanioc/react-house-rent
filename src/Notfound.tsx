@@ -7,7 +7,7 @@ class NotFound extends React.Component {
       <div className={css.App}>
         <header className={css.App_header}>
           <p>
-            <code>Sorry Not Found.</code>
+            <code style={{ color: "#fff" }}>Sorry Not Found.</code>
           </p>
         </header>
       </div>
