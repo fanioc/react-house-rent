@@ -1,9 +1,8 @@
 import React from "react";
-import Lgoin from "./login";
 import { Container, Col, Row } from "react-bootstrap";
 import "./index.css";
 import { ContextUser, LoadCheck } from "../context/ContextUser";
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps, withRouter, Redirect } from "react-router";
 
 interface AdminIndexState {
   login: boolean;
@@ -14,22 +13,18 @@ class AdminIndex extends React.Component<
 > {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { login: false };
+    this.state = { login: true };
   }
 
   static contextType = ContextUser;
 
-  handleLogin(state: boolean) {
-    this.setState({ login: state });
-  }
-
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     let logstate = LoadCheck();
     if (logstate === false) {
-      this.handleLogin(logstate);
+      this.setState({ login: logstate });
     } else {
       logstate.then(state => {
-        this.handleLogin(state);
+        this.setState({ login: state });
       });
     }
   }
@@ -40,25 +35,11 @@ class AdminIndex extends React.Component<
         {this.state.login ? (
           <Container>
             <Row>
-              <Col>首页{this.context.token} </Col>
+              <Col>首页{this.context.name}</Col>
             </Row>
           </Container>
         ) : (
-          <Container style={{ height: "100vh", paddingTop: "30vh" }}>
-            <Row className="pb-5">
-              <Col className="flex flex-center" lg={{ span: 4, offset: 4 }}>
-                请登入
-              </Col>
-            </Row>
-            <Row>
-              <Col md={{ span: 4, offset: 4 }}>
-                <Lgoin
-                  handleLogin={this.handleLogin.bind(this)}
-                  history={this.props.history}
-                />
-              </Col>
-            </Row>
-          </Container>
+          <Redirect to="/admin/login"></Redirect>
         )}
       </>
     );

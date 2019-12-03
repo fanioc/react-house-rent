@@ -17,7 +17,7 @@ code {
 }
 
 .hidemain {
-  position: fixed;
+  position: absolute;
 }
 
 div#mask {

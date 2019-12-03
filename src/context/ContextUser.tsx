@@ -1,34 +1,28 @@
 import React from "react";
-import { APICheckToken } from "../API/UserLogin";
-export interface UserInfoType {
-  name?: string;
-  id?: number;
-  head_img?: string;
-  token?: string;
-  right?: number; // 1浏览、2修改、4审核 7管理员  0用户
-  handle: Function;
+import { APICheckToken, UserInfo } from "../API/UserLogin";
+
+export interface UserContext extends UserInfo {
+  set: (info: UserInfo) => void;
 }
 
-export const userInfo: UserInfoType = { handle: setUser };
+export const UserState: UserContext = { set: setUser };
 
-function setUser(info: UserInfoType) {
+function setUser(info: UserInfo) {
   // 手动深拷贝...
-  userInfo.token = info.token;
-  userInfo.name = info.name;
-  userInfo.right = info.right;
-  userInfo.head_img = info.head_img;
-  userInfo.id = info.id;
+  UserState.token = info.token;
+  UserState.name = info.name;
+  UserState.right = info.right;
+  UserState.head_img = info.head_img;
+  UserState.id = info.id;
 }
 
-export const ContextUser = React.createContext<UserInfoType>({
-  handle: setUser
-});
+export const ContextUser = React.createContext<UserContext>(UserState);
 
 /**
  * User Session Manager
  */
 
-// check session with load app.
+// check token with load app.
 export function LoadCheck(): Promise<boolean> | false {
   const token = sessionStorage.getItem("UserToken");
   const name = sessionStorage.getItem("UserName");
@@ -44,7 +38,8 @@ export function CheckToken(name: string, token: string): Promise<boolean> {
     if (result === false) {
       return false;
     } else {
-      userInfo.handle(result);
+      UserState.set(result);
+      console.log(UserState);
       return true;
     }
   });
