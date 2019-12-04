@@ -5,16 +5,7 @@ export interface UserContext extends UserInfo {
   set: (info: UserInfo) => void;
 }
 
-export const UserState: UserContext = { set: setUser };
-
-function setUser(info: UserInfo) {
-  // 手动深拷贝...
-  UserState.token = info.token;
-  UserState.name = info.name;
-  UserState.right = info.right;
-  UserState.head_img = info.head_img;
-  UserState.id = info.id;
-}
+export const UserState: UserContext = { set: () => {} };
 
 export const ContextUser = React.createContext<UserContext>(UserState);
 

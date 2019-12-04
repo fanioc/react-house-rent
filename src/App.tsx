@@ -1,13 +1,77 @@
 import React from "react";
 
-class App extends React.Component {
+// import react router.
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import {
+  UserContext,
+  ContextUser,
+  UserState,
+  LoadCheck
+} from "./context/ContextUser";
+
+import Admin from "./Admin/index";
+import AdminLogin from "./Admin/login";
+import Home from "./Home/index";
+import HomeManage from "./HomeManage/index";
+import Notfound from "./Notfound";
+import Header from "./common/Header";
+import { UserInfo } from "./API/UserLogin";
+
+interface AppStore {
+  UserInfo: UserContext;
+  login: boolean;
+}
+
+class App extends React.Component<any, AppStore> {
+  constructor(props: any) {
+    super(props);
+    this.handleUserInfo = this.handleUserInfo.bind(this);
+    UserState.set = this.handleUserInfo;
+    this.state = { UserInfo: { set: this.handleUserInfo }, login: false };
+  }
+
+  componentDidMount() {
+    let logstate = LoadCheck();
+    if (logstate === false) {
+      this.setState({ login: logstate });
+    } else {
+      logstate.then(state => {
+        this.setState({ login: state });
+      });
+    }
+  }
+
+  handleUserInfo(info: UserInfo) {
+    this.setState({
+      UserInfo: {
+        ...info,
+        set: this.handleUserInfo
+      }
+    });
+  }
+
   render() {
     return (
-      <div className="hidemain">
-        <div id="mask" style={{ display: "none" }}>
-          遮罩
-        </div>
-      </div>
+      <>
+        <ContextUser.Provider value={this.state.UserInfo}>
+          <BrowserRouter>
+            <Header />
+            <div className="hidemain">
+              <div id="mask" style={{ display: "none" }}>
+                遮罩
+              </div>
+            </div>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/admin" component={Admin} />
+              <Route exact path="/admin/login" component={AdminLogin} />
+              <Route exact path="/manage" component={HomeManage} />
+              <Route exact path="/manage/login" component={AdminLogin} />
+              <Route exact path="*" component={Notfound} />
+            </Switch>
+          </BrowserRouter>
+        </ContextUser.Provider>
+      </>
     );
   }
 }

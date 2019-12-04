@@ -46,7 +46,7 @@ class StaffLogin extends React.Component<
 
   render() {
     return (
-      <Container style={{ height: "100vh", paddingTop: "30vh" }}>
+      <Container style={{ height: "calc(100vh - 56px);", paddingTop: "20vh" }}>
         <Row className="pb-5">
           <Col className="flex flex-center" lg={{ span: 4, offset: 4 }}>
             请登入 {this.state.upsw}

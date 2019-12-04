@@ -1,38 +1,26 @@
 import React from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import "./index.css";
-import { ContextUser, LoadCheck } from "../context/ContextUser";
+import { ContextUser } from "../context/ContextUser";
 import { RouteComponentProps, withRouter, Redirect } from "react-router";
 
-interface AdminIndexState {
-  login: boolean;
-}
+interface AdminIndexState {}
 class AdminIndex extends React.Component<
   RouteComponentProps<any>,
   AdminIndexState
 > {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { login: true };
+    this.state = {};
   }
-
   static contextType = ContextUser;
 
-  componentDidMount() {
-    let logstate = LoadCheck();
-    if (logstate === false) {
-      this.setState({ login: logstate });
-    } else {
-      logstate.then(state => {
-        this.setState({ login: state });
-      });
-    }
-  }
+  componentDidMount() {}
 
   render() {
     return (
       <>
-        {this.state.login ? (
+        {this.context.right >= 0 ? (
           <Container>
             <Row>
               <Col>首页{this.context.name}</Col>
