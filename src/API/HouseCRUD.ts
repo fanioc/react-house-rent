@@ -4,7 +4,7 @@
  */
 
 import Axios from "axios";
-import { ReturnData, getToken } from "./return";
+import { ReturnData } from "./return";
 
 //基础信息
 export interface HouseBaseInfo {
@@ -33,17 +33,21 @@ export interface HouseInfo extends HouseBaseInfo {
 export interface HouseList extends Array<HouseInfo> {}
 
 export async function APIHousePublish(
-  info: HouseInfo
+  info: HouseInfo,
+  name: string,
+  token: string
 ): Promise<HouseBaseInfo | false> {
   try {
-    let usertoken = getToken();
-    if (usertoken === false) return false;
-    let response = await Axios.get<ReturnData<HouseInfo>>("/api/housepublish", {
-      params: {
-        ...usertoken,
-        ...info
+    let response = await Axios.post<ReturnData<HouseInfo>>(
+      "/api/housepublish",
+      { ...info },
+      {
+        params: {
+          name: name,
+          token: token
+        }
       }
-    });
+    );
     let result = response.data.data;
     if (response.data.err_code == 0) return result;
     else return false;
@@ -53,15 +57,14 @@ export async function APIHousePublish(
 }
 
 export async function APIHouseList(
-  info: HouseInfo
+  name: string,
+  token: string
 ): Promise<HouseList | false> {
   try {
-    let usertoken = getToken();
-    if (usertoken === false) return false;
     let result = await Axios.get<ReturnData<HouseList>>("/api/houselist", {
       params: {
-        ...getToken(),
-        ...info
+        name: name,
+        token: token
       }
     });
     return result.data.data;
@@ -72,17 +75,21 @@ export async function APIHouseList(
 
 //修改
 export async function APIHouseModify(
-  info: HouseInfo
+  info: HouseInfo,
+  name: string,
+  token: string
 ): Promise<HouseInfo | false> {
   try {
-    let usertoken = getToken();
-    if (usertoken === false) return false;
-    let result = await Axios.get<ReturnData<HouseInfo>>("/api/houselist", {
-      params: {
-        ...getToken(),
-        ...info
+    let result = await Axios.post<ReturnData<HouseInfo>>(
+      "/api/houselist",
+      { ...info },
+      {
+        params: {
+          name: name,
+          token: token
+        }
       }
-    });
+    );
     return result.data.data;
   } catch (e) {
     return false;

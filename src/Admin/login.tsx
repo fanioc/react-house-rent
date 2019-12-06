@@ -2,7 +2,8 @@ import React from "react";
 import { withRouter, RouteComponentProps } from "react-router";
 import { Row, Col, Container } from "react-bootstrap";
 import { LoginForm } from "../common/loginform";
-import { ContextUser } from "../context/ContextUser";
+import { UserState } from "../context/ContextUser";
+import { APILogin } from "../API/UserLogin";
 
 interface StaffLoginState {
   uname: string;
@@ -22,19 +23,21 @@ class StaffLogin extends React.Component<
     this.handleName = this.handleName.bind(this);
     this.handlePsw = this.handlePsw.bind(this);
   }
-  static contextType = ContextUser;
 
   handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(this.state.uname);
 
-    //TODO::调用登入API
-    if (true) {
-      sessionStorage.setItem("UserToken", "sdf");
-      sessionStorage.setItem("UserName", "dafsdf");
-      this.context.set({ name: this.state.uname, token: "dafsdf" });
-      this.props.history.push("/admin");
-    }
+    let loginstatef = APILogin(this.state.uname, this.state.upsw, 1); //管理员登入
+    loginstatef.then(data => {
+      if (data !== false) {
+        UserState.set(data);
+        this.props.history.push("/admin");
+      } else {
+        console.log("登入失败逻辑代码");
+        //TODO::登入错误
+      }
+    });
   }
 
   handleName(event: React.FormEvent<HTMLInputElement>) {
@@ -46,7 +49,7 @@ class StaffLogin extends React.Component<
 
   render() {
     return (
-      <Container style={{ height: "calc(100vh - 56px);", paddingTop: "20vh" }}>
+      <Container style={{ height: "calc(100vh - 56px)", paddingTop: "20vh" }}>
         <Row className="pb-5">
           <Col className="flex flex-center" lg={{ span: 4, offset: 4 }}>
             请登入 {this.state.upsw}

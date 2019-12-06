@@ -26,7 +26,7 @@ class App extends React.Component<any, AppStore> {
   constructor(props: any) {
     super(props);
     this.handleUserInfo = this.handleUserInfo.bind(this);
-    UserState.set = this.handleUserInfo;
+    UserState.set = this.handleUserInfo.bind(this);
     this.state = { UserInfo: { set: this.handleUserInfo }, login: false };
   }
 
@@ -42,6 +42,7 @@ class App extends React.Component<any, AppStore> {
   }
 
   handleUserInfo(info: UserInfo) {
+    console.log("调用HandleUserInfo");
     this.setState({
       UserInfo: {
         ...info,

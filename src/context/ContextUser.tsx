@@ -15,10 +15,9 @@ export const ContextUser = React.createContext<UserContext>(UserState);
 
 // check token with load app.
 export function LoadCheck(): Promise<boolean> | false {
-  const token = sessionStorage.getItem("UserToken");
-  const name = sessionStorage.getItem("UserName");
-  if (token != null && name != null) {
-    return CheckToken(name, token);
+  let tokeninfo = GetToken();
+  if (tokeninfo !== false) {
+    return CheckToken(tokeninfo.name, tokeninfo.token);
   } else return false;
 }
 
@@ -30,8 +29,26 @@ export function CheckToken(name: string, token: string): Promise<boolean> {
       return false;
     } else {
       UserState.set(result);
-      console.log(UserState);
       return true;
     }
   });
+}
+
+//从localstorage里获取token
+export function GetToken(): { token: string; name: string } | false {
+  let token = localStorage.getItem("UserToken");
+  let name = localStorage.getItem("UserName");
+  if (token === null || name === null) return false;
+  else {
+    return {
+      token: token,
+      name: name
+    };
+  }
+}
+
+//在localstorage设置token
+export function SetToken(name: string, token: string) {
+  localStorage.setItem("UserToken", token);
+  localStorage.setItem("UserName", name);
 }

@@ -1,9 +1,12 @@
-/**
- * API接口:用户登入/员工登入/检查登入状态
- *
+/*
+ * @Author: Fanioc
+ * @Date: 2019-12-02 00:19:46
+ * @Description: API接口:用户登入/员工登入/检查登入状态
  */
+
 import Axios from "axios";
-import { ReturnData, getToken } from "./return";
+import { ReturnData } from "./return";
+import { SetToken } from "../context/ContextUser";
 
 export interface UserInfo {
   name?: string;
@@ -24,11 +27,10 @@ export async function APICheckToken(
         token: token
       }
     });
+
     return result.data.data;
   } catch (e) {
-    // TODO::增加测试数据
     return { name: "管理员", right: 7, token: token };
-    // return false;
   }
 }
 
@@ -45,20 +47,29 @@ export async function APILogin(
         type: type
       }
     });
+    if (
+      result.data.data.name !== undefined &&
+      result.data.data.token !== undefined
+    )
+      SetToken(result.data.data.name, result.data.data.token);
+    //TODO判断errcode
     return result.data.data;
   } catch (e) {
+    SetToken(name, "测试token");
+    return { name: "管理员", right: 7, token: "测试token" };
     //TODO::增加测试数据
-    return false;
   }
 }
 
-export async function APILoginOut(): Promise<UserInfo | false> {
+export async function APILoginOut(
+  name: string,
+  token: string
+): Promise<UserInfo | false> {
   try {
-    let usertoken = getToken();
-    if (usertoken === false) return false;
     let result = await Axios.get<ReturnData<UserInfo>>("/api/loginout", {
       params: {
-        ...usertoken
+        name: name,
+        token: token
       }
     });
     return result.data.data;
