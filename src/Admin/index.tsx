@@ -20,14 +20,26 @@ class AdminIndex extends React.Component<
   render() {
     return (
       <>
-        {this.context.right >= 0 ? (
+        {sessionStorage.getItem("UserToken") == null ? (
+          <Redirect to="/admin/login"></Redirect>
+        ) : this.context.right == undefined ? (
           <Container>
             <Row>
-              <Col>首页{this.context.name}</Col>
+              <Col>
+                首页{this.context.right} {this.context.name}
+              </Col>
+            </Row>
+          </Container>
+        ) : this.context.right > 0 ? (
+          <Container>
+            <Row>
+              <Col>
+                首页{this.context.right} {this.context.name}
+              </Col>
             </Row>
           </Container>
         ) : (
-          <Redirect to="/admin/login"></Redirect>
+          <div>对不起,用户无权限查看</div>
         )}
       </>
     );

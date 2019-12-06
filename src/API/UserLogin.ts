@@ -54,9 +54,11 @@ export async function APILogin(
 
 export async function APILoginOut(): Promise<UserInfo | false> {
   try {
+    let usertoken = getToken();
+    if (usertoken === false) return false;
     let result = await Axios.get<ReturnData<UserInfo>>("/api/loginout", {
       params: {
-        ...getToken()
+        ...usertoken
       }
     });
     return result.data.data;

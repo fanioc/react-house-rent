@@ -36,9 +36,11 @@ export async function APIHousePublish(
   info: HouseInfo
 ): Promise<HouseBaseInfo | false> {
   try {
+    let usertoken = getToken();
+    if (usertoken === false) return false;
     let response = await Axios.get<ReturnData<HouseInfo>>("/api/housepublish", {
       params: {
-        ...getToken(),
+        ...usertoken,
         ...info
       }
     });
@@ -54,6 +56,8 @@ export async function APIHouseList(
   info: HouseInfo
 ): Promise<HouseList | false> {
   try {
+    let usertoken = getToken();
+    if (usertoken === false) return false;
     let result = await Axios.get<ReturnData<HouseList>>("/api/houselist", {
       params: {
         ...getToken(),
@@ -71,6 +75,8 @@ export async function APIHouseModify(
   info: HouseInfo
 ): Promise<HouseInfo | false> {
   try {
+    let usertoken = getToken();
+    if (usertoken === false) return false;
     let result = await Axios.get<ReturnData<HouseInfo>>("/api/houselist", {
       params: {
         ...getToken(),
