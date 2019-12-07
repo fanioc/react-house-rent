@@ -40,21 +40,24 @@ export default class Header extends React.Component<any, HeaderState> {
             <Link className="nav-link" to="/">
               首页
             </Link>
-            <Link className="nav-link" to="/house">
+            <Link className="nav-link" to="#houselist">
               房源列表
             </Link>
-            <Link className="nav-link" to="/information">
+            <Link className="nav-link" to="#information">
               信息公示
             </Link>
             {this.context.right === undefined ? (
-              <Link className="nav-link" to="/register">
-                购房登记
+              <Link className="nav-link" to="/manage">
+                购房管理
               </Link>
             ) : this.context.right > 0 ? (
               <AdminAction />
             ) : (
               <UserAction />
             )}
+            <Link className="nav-link" to="/admin">
+              员工管理页
+            </Link>
           </Nav>
 
           <Form inline>
@@ -77,10 +80,10 @@ export default class Header extends React.Component<any, HeaderState> {
 function UserAction() {
   return (
     <NavDropdown title="用户操作" id="basic-nav-dropdown">
-      <NavDropdown.Item href="#action/3.1">购房登记</NavDropdown.Item>
-      <NavDropdown.Item href="#action/3.2">信息管理</NavDropdown.Item>
+      <NavDropdown.Item href="/manage">购房登记</NavDropdown.Item>
+      <NavDropdown.Item href="/manage">信息管理</NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item href="#action/3.4">摇号</NavDropdown.Item>
+      <NavDropdown.Item href="/manage">摇号</NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item onClick={loginout}>退出登入</NavDropdown.Item>
     </NavDropdown>
@@ -89,11 +92,11 @@ function UserAction() {
 function AdminAction() {
   return (
     <NavDropdown title="管理员操作" id="basic-nav-dropdown">
-      <NavDropdown.Item href="#action/3.2">审核房源</NavDropdown.Item>
-      <NavDropdown.Item href="#action/3.3">审核用户</NavDropdown.Item>
+      <NavDropdown.Item href="/admin">审核房源</NavDropdown.Item>
+      <NavDropdown.Item href="/admin">审核用户</NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item href="#action/3.1">发布房源</NavDropdown.Item>
-      <NavDropdown.Item href="#action/3.4">摇号分组</NavDropdown.Item>
+      <NavDropdown.Item href="/admin">发布房源</NavDropdown.Item>
+      <NavDropdown.Item href="/admin">摇号分组</NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item onClick={loginout}>退出登入</NavDropdown.Item>
     </NavDropdown>

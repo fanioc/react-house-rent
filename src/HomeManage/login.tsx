@@ -32,7 +32,7 @@ class StaffLogin extends React.Component<
     e.preventDefault();
     console.log(this.state.uname);
 
-    let loginstatef = APILogin(this.state.uname, this.state.upsw, 1); //管理员登入
+    let loginstatef = APILogin(this.state.uname, this.state.upsw, 0); //用户登入
     loginstatef.then(data => {
       if (data !== false) {
         UserState.set(data);
@@ -42,7 +42,7 @@ class StaffLogin extends React.Component<
           "success"
         );
         setTimeout(() => {
-          this.props.history.push("/admin");
+          this.props.history.push("/manage");
         }, 1000);
       } else {
         this.AlertMsg("登入错误", "danger");
@@ -77,7 +77,7 @@ class StaffLogin extends React.Component<
         </Row>
         <Row className="pb-5">
           <Col className="flex flex-center" lg={{ span: 4, offset: 4 }}>
-            员工登入
+            用户登入
           </Col>
         </Row>
         <Row>
