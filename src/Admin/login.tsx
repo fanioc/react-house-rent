@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter, RouteComponentProps } from "react-router";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Alert } from "react-bootstrap";
 import { LoginForm } from "../common/loginform";
 import { UserState } from "../context/ContextUser";
 import { APILogin } from "../API/UserLogin";
@@ -8,6 +8,8 @@ import { APILogin } from "../API/UserLogin";
 interface StaffLoginState {
   uname: string;
   upsw: string;
+  alertmsg: string;
+  alerttype: string;
 }
 class StaffLogin extends React.Component<
   RouteComponentProps<any>,
@@ -17,7 +19,9 @@ class StaffLogin extends React.Component<
     super(props);
     this.state = {
       uname: "",
-      upsw: ""
+      upsw: "",
+      alertmsg: "",
+      alerttype: "danger"
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleName = this.handleName.bind(this);
@@ -32,9 +36,12 @@ class StaffLogin extends React.Component<
     loginstatef.then(data => {
       if (data !== false) {
         UserState.set(data);
-        this.props.history.push("/admin");
+        this.AlertMsg("登入成功,即将跳转...", "success");
+        setTimeout(() => {
+          this.props.history.push("/admin");
+        }, 1000);
       } else {
-        console.log("登入失败逻辑代码");
+        this.AlertMsg("登入错误", "danger");
         //TODO::登入错误
       }
     });
@@ -47,12 +54,26 @@ class StaffLogin extends React.Component<
     this.setState({ upsw: event.currentTarget.value });
   }
 
+  AlertMsg(msg: string, type: string) {
+    this.setState({ alertmsg: msg, alerttype: type });
+  }
+
   render() {
     return (
       <Container style={{ height: "calc(100vh - 56px)", paddingTop: "20vh" }}>
+        <Row>
+          <Alert
+            hidden={this.state.alertmsg === ""}
+            key={0}
+            className="col-12 text-center"
+            variant="danger"
+          >
+            {this.state.alertmsg}
+          </Alert>
+        </Row>
         <Row className="pb-5">
           <Col className="flex flex-center" lg={{ span: 4, offset: 4 }}>
-            请登入 {this.state.upsw}
+            请登入
           </Col>
         </Row>
         <Row>

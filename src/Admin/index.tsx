@@ -13,7 +13,6 @@ class AdminIndex extends React.Component<
     super(props);
     this.state = {};
   }
-  static contextType = ContextUser;
 
   componentDidMount() {}
 
@@ -26,9 +25,7 @@ class AdminIndex extends React.Component<
           ) : UserInfo.right === undefined ? (
             <Container>
               <Row>
-                <Col>
-                  首页{UserInfo.right} {UserInfo.name}
-                </Col>
+                <Col>首页 未定义?</Col>
               </Row>
             </Container>
           ) : UserInfo.right > 0 ? (

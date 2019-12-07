@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ContextUser } from "../context/ContextUser";
+import {
+  ContextUser,
+  RemoveToken,
+  UserState,
+  GetToken
+} from "../context/ContextUser";
+import { APILoginOut } from "../API/UserLogin";
+
 import {
   Nav,
   Navbar,
@@ -74,6 +81,8 @@ function UserAction() {
       <NavDropdown.Item href="#action/3.2">信息管理</NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item href="#action/3.4">摇号</NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item onClick={loginout}>退出登入</NavDropdown.Item>
     </NavDropdown>
   );
 }
@@ -85,6 +94,20 @@ function AdminAction() {
       <NavDropdown.Divider />
       <NavDropdown.Item href="#action/3.1">发布房源</NavDropdown.Item>
       <NavDropdown.Item href="#action/3.4">摇号分组</NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item onClick={loginout}>退出登入</NavDropdown.Item>
     </NavDropdown>
   );
+}
+
+function loginout() {
+  let info = GetToken();
+  if (info === false) {
+    return;
+  }
+  APILoginOut(info.name, info.token).then(result => {
+    console.log(result);
+  });
+  RemoveToken();
+  UserState.set({});
 }

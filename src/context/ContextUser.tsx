@@ -26,6 +26,8 @@ export function CheckToken(name: string, token: string): Promise<boolean> {
   //TODO::调用检查token接口,检查登入状态
   return APICheckToken(name, token).then(result => {
     if (result === false) {
+      console.log("APICHECKTOKEN,REMOVE TOKEN");
+      RemoveToken();
       return false;
     } else {
       UserState.set(result);
@@ -45,6 +47,12 @@ export function GetToken(): { token: string; name: string } | false {
       name: name
     };
   }
+}
+
+//在localstorage设置token
+export function RemoveToken() {
+  localStorage.removeItem("UserToken");
+  localStorage.removeItem("UserName");
 }
 
 //在localstorage设置token

@@ -27,38 +27,36 @@ export async function APICheckToken(
         token: token
       }
     });
-
-    return result.data.data;
+    if (result.data.err_code === 0) {
+      SetToken(result.data.data.name!, result.data.data.token!);
+      return result.data.data;
+    } else return false;
   } catch (e) {
-    return { name: "管理员", right: 7, token: token };
+    return false;
   }
 }
 
 export async function APILogin(
   name: string,
-  passowrd: string,
+  password: string,
   type: number
 ): Promise<UserInfo | false> {
   try {
     let result = await Axios.get<ReturnData<UserInfo>>(API.Login, {
       params: {
         name: name,
-        passowrd: passowrd,
+        password: password,
         type: type
       }
     });
-    if (
-      result.data.data.name !== undefined &&
-      result.data.data.token !== undefined
-    )
-      SetToken(result.data.data.name, result.data.data.token);
-    //TODO判断errcode
-    return result.data.data;
+
+    if (result.data.err_code === 0) {
+      SetToken(result.data.data.name!, result.data.data.token!);
+      return result.data.data;
+    } else return false;
   } catch (e) {
-    //TODO::添加全局toast
-    SetToken(name, "测试token");
-    return { name: "管理员", right: 7, token: "测试token" };
-    //TODO::增加测试数据
+    //TODO::添加全局toast "网络错误"
+    return false;
   }
 }
 
@@ -73,7 +71,7 @@ export async function APILoginOut(
         token: token
       }
     });
-    if (result.data.err_code == 0) return true;
+    if (result.data.err_code === 0) return true;
     else return false;
   } catch (e) {
     //TODO::添加全局toast
