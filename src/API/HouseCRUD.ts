@@ -1,10 +1,11 @@
-/**
- * API接口:获取所有房源/获取已审核房源/发布房源
- *
+/*
+ * @Author: Fanioc
+ * @Date: 2019-12-03 18:50:29
+ * @Description: 获取所有房源/获取已审核房源/发布房源
  */
 
 import Axios from "axios";
-import { ReturnData } from "./return";
+import { ReturnData, API } from "./APIconfig";
 
 //基础信息
 export interface HouseBaseInfo {
@@ -32,14 +33,14 @@ export interface HouseInfo extends HouseBaseInfo {
 
 export interface HouseList extends Array<HouseInfo> {}
 
-export async function APIHousePublish(
+export async function APIHouseIssue(
   info: HouseInfo,
   name: string,
   token: string
 ): Promise<HouseBaseInfo | false> {
   try {
     let response = await Axios.post<ReturnData<HouseInfo>>(
-      "/api/housepublish",
+      API.HouseIssue,
       { ...info },
       {
         params: {
@@ -61,7 +62,7 @@ export async function APIHouseList(
   token: string
 ): Promise<HouseList | false> {
   try {
-    let result = await Axios.get<ReturnData<HouseList>>("/api/houselist", {
+    let result = await Axios.get<ReturnData<HouseList>>(API.HouseList, {
       params: {
         name: name,
         token: token
@@ -81,7 +82,7 @@ export async function APIHouseModify(
 ): Promise<HouseInfo | false> {
   try {
     let result = await Axios.post<ReturnData<HouseInfo>>(
-      "/api/houselist",
+      API.HouseModify,
       { ...info },
       {
         params: {

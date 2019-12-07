@@ -1,11 +1,11 @@
 /*
  * @Author: Fanioc
  * @Date: 2019-12-02 00:19:46
- * @Description: API接口:用户登入/员工登入/检查登入状态
+ * @Description: 用户登入/员工登入/检查登入状态/退出登入
  */
 
 import Axios from "axios";
-import { ReturnData } from "./return";
+import { ReturnData, API } from "./APIconfig";
 import { SetToken } from "../context/ContextUser";
 
 export interface UserInfo {
@@ -21,7 +21,7 @@ export async function APICheckToken(
   token: string
 ): Promise<UserInfo | false> {
   try {
-    let result = await Axios.get<ReturnData<UserInfo>>("/api/checktoken", {
+    let result = await Axios.get<ReturnData<UserInfo>>(API.CheckToken, {
       params: {
         name: name,
         token: token
@@ -40,7 +40,7 @@ export async function APILogin(
   type: number
 ): Promise<UserInfo | false> {
   try {
-    let result = await Axios.get<ReturnData<UserInfo>>("/api/login", {
+    let result = await Axios.get<ReturnData<UserInfo>>(API.Login, {
       params: {
         name: name,
         passowrd: passowrd,
@@ -55,6 +55,7 @@ export async function APILogin(
     //TODO判断errcode
     return result.data.data;
   } catch (e) {
+    //TODO::添加全局toast
     SetToken(name, "测试token");
     return { name: "管理员", right: 7, token: "测试token" };
     //TODO::增加测试数据
@@ -64,17 +65,18 @@ export async function APILogin(
 export async function APILoginOut(
   name: string,
   token: string
-): Promise<UserInfo | false> {
+): Promise<Boolean> {
   try {
-    let result = await Axios.get<ReturnData<UserInfo>>("/api/loginout", {
+    let result = await Axios.get<ReturnData<null>>(API.LoginOut, {
       params: {
         name: name,
         token: token
       }
     });
-    return result.data.data;
+    if (result.data.err_code == 0) return true;
+    else return false;
   } catch (e) {
-    //TODO::增加测试数据
+    //TODO::添加全局toast
     return false;
   }
 }
