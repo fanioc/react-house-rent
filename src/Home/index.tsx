@@ -27,13 +27,29 @@ export default class HomeIndex extends React.Component<any, HomeState> {
     return (
       <Container>
         <Row>
-          <Col xl={12}>
+          <Col xl={12} className="mt-3">
             <HouseBanner />
           </Col>
         </Row>
         <Row>
-          <Col xl={12}>
+          <Col xl={12} className="mt-3">
+            <hr />
+            <h1 id="houselist" className="font-weight-bold">
+              在售楼盘
+            </h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col xl={12} className="mt-3">
             <HouseList list={this.state.list} />
+          </Col>
+        </Row>
+        <Row>
+          <Col xl={12} className="mt-3">
+            <hr />
+            <h1 id="information" className="font-weight-bold">
+              信息公示
+            </h1>
           </Col>
         </Row>
         <Row>

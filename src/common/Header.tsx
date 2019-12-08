@@ -40,10 +40,18 @@ export default class Header extends React.Component<any, HeaderState> {
             <Link className="nav-link" to="/">
               首页
             </Link>
-            <Link className="nav-link" to="#houselist">
+            <Link
+              className="nav-link"
+              onClick={() => scrollToAnchor("houselist")}
+              to="/#houselist"
+            >
               房源列表
             </Link>
-            <Link className="nav-link" to="#information">
+            <Link
+              className="nav-link"
+              onClick={() => scrollToAnchor("information")}
+              to="/#information"
+            >
               信息公示
             </Link>
             {this.context.right === undefined ? (
@@ -77,13 +85,30 @@ export default class Header extends React.Component<any, HeaderState> {
   }
 }
 
+function scrollToAnchor(anchorName: string) {
+  if (anchorName) {
+    // 找到锚点
+    let anchorElement = document.getElementById(anchorName);
+    // 如果对应id的锚点存在，就跳转到锚点
+    if (anchorElement) {
+      anchorElement.scrollIntoView();
+    }
+  }
+}
+
 function UserAction() {
   return (
     <NavDropdown title="用户操作" id="basic-nav-dropdown">
-      <NavDropdown.Item href="/manage">购房登记</NavDropdown.Item>
-      <NavDropdown.Item href="/manage">信息管理</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/manage">
+        购房登记
+      </NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/manage">
+        信息管理
+      </NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item href="/manage">摇号</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/manage">
+        摇号
+      </NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item onClick={loginout}>退出登入</NavDropdown.Item>
     </NavDropdown>
@@ -92,11 +117,19 @@ function UserAction() {
 function AdminAction() {
   return (
     <NavDropdown title="管理员操作" id="basic-nav-dropdown">
-      <NavDropdown.Item href="/admin">审核房源</NavDropdown.Item>
-      <NavDropdown.Item href="/admin">审核用户</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/admin">
+        审核房源
+      </NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/admin">
+        审核用户
+      </NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item href="/admin">发布房源</NavDropdown.Item>
-      <NavDropdown.Item href="/admin">摇号分组</NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/admin">
+        发布房源
+      </NavDropdown.Item>
+      <NavDropdown.Item as={Link} to="/admin">
+        摇号分组
+      </NavDropdown.Item>
       <NavDropdown.Divider />
       <NavDropdown.Item onClick={loginout}>退出登入</NavDropdown.Item>
     </NavDropdown>

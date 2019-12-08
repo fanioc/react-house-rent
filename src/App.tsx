@@ -72,6 +72,17 @@ class App extends React.Component<any, AppStore> {
               <Route exact path="*" component={Notfound} />
             </Switch>
           </BrowserRouter>
+
+          <footer
+            style={{
+              height: "200px",
+              textAlign: "center",
+              paddingTop: "100px"
+            }}
+          >
+            <hr />
+            楼房摇号系统 © 2019
+          </footer>
         </ContextUser.Provider>
       </>
     );
