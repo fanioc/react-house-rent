@@ -75,7 +75,7 @@ export async function APIHouseModify(
   try {
     let result = await Axios.post<ReturnData<HouseInfo>>(
       API.HouseModify,
-      { ...info },
+      info,
       {
         params: {
           name: name,

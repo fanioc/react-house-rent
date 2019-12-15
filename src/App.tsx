@@ -13,6 +13,7 @@ import Admin from "./Admin/index";
 import AdminLogin from "./Admin/login";
 import Home from "./Home/index";
 import HomeManage from "./HomeManage/index";
+import UserRegister from "./HomeManage/register";
 import ManageLogin from "./HomeManage/login";
 import Notfound from "./Notfound";
 import Header from "./common/Header";
@@ -69,6 +70,7 @@ class App extends React.Component<any, AppStore> {
               <Route exact path="/admin/login" component={AdminLogin} />
               <Route exact path="/manage" component={HomeManage} />
               <Route exact path="/manage/login" component={ManageLogin} />
+              <Route exact path="/manage/register" component={UserRegister} />
               <Route exact path="*" component={Notfound} />
             </Switch>
           </BrowserRouter>

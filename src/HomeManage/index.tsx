@@ -12,7 +12,7 @@ export default class InformationList extends React.Component {
           ) : UserInfo.right === undefined ? (
             <Container>
               <Row>
-                <Col>首页 未定义?</Col>
+                <Col>等待跳转...</Col>
               </Row>
             </Container>
           ) : UserInfo.right === 0 ? (

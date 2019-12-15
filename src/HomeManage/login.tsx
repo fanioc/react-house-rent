@@ -64,7 +64,7 @@ class StaffLogin extends React.Component<
 
   render() {
     return (
-      <Container style={{ height: "calc(100vh - 56px)", paddingTop: "20vh" }}>
+      <Container style={{ height: "70vh", paddingTop: "20vh" }}>
         <Row>
           <Alert
             hidden={this.state.alertmsg === ""}
@@ -77,12 +77,15 @@ class StaffLogin extends React.Component<
         </Row>
         <Row className="pb-5">
           <Col className="flex flex-center" lg={{ span: 4, offset: 4 }}>
-            用户登入
+            <h1>
+              <b>用户登入</b>
+            </h1>
           </Col>
         </Row>
         <Row>
           <Col md={{ span: 4, offset: 4 }}>
             <LoginForm
+              Register="register"
               handleName={this.handleName}
               handlePsw={this.handlePsw}
               FormLogin={this.handleLogin}

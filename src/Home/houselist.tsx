@@ -1,5 +1,6 @@
 import React from "react";
 import { HouseInfo } from "../API/HouseCRUD";
+import { Link } from "react-router-dom";
 import { Button, CardColumns, Card, Carousel } from "react-bootstrap";
 
 interface HouseListProps {
@@ -41,7 +42,13 @@ function HouseCard(props: { HouseInfo: HouseInfo }) {
           </Card.Title>
           <Card.Text>介绍：{props.HouseInfo.introudce}</Card.Text>
 
-          <Button variant="primary">点击预定</Button>
+          <Button
+            as={Link}
+            to={"/manage?houserid=" + props.HouseInfo.presell_number}
+            variant="primary"
+          >
+            点击预定
+          </Button>
           <Card.Text>
             <small>开发企业：{props.HouseInfo.enterprise}</small>
           </Card.Text>
@@ -70,7 +77,7 @@ export class HouseBanner extends React.Component {
               width: "auto",
               height: "auto",
               maxWidth: "100%",
-              maxHeight: "100%"
+              maxHeight: "400px"
             }}
           />
           <Carousel.Caption>
@@ -87,7 +94,7 @@ export class HouseBanner extends React.Component {
               width: "auto",
               height: "auto",
               maxWidth: "100%",
-              maxHeight: "100%"
+              maxHeight: "400px"
             }}
           />
 
@@ -105,7 +112,7 @@ export class HouseBanner extends React.Component {
               width: "auto",
               height: "auto",
               maxWidth: "100%",
-              maxHeight: "100%"
+              maxHeight: "400px"
             }}
           />
 
