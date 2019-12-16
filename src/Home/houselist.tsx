@@ -64,6 +64,10 @@ function HouseCard(props: { HouseInfo: HouseInfo }) {
   );
 }
 
+
+interface HouseListProps {
+  list: Array<HouseInfo>;
+}
 export class HouseBanner extends React.Component {
   render() {
     return (

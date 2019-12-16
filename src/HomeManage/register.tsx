@@ -98,7 +98,7 @@ export default class UserRegiser extends React.Component<
 
           <Form.Row>
             <Form.Group as={Col} controlId="presell">
-              <Form.Label>意向楼盘预售编号</Form.Label>
+              <Form.Label>意向预售编号</Form.Label>
               <Form.Control />
             </Form.Group>
             <Form.Group as={Col} controlId="housetype">

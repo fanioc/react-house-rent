@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Row, Col, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Row, Col, Container } from "react-bootstrap";
 import { HouseList, HouseBanner } from "./houselist";
 import { InformationList } from "./information";
 import { APIHouseList, HouseInfo } from "../API/HouseCRUD";

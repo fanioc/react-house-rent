@@ -22,7 +22,7 @@ export interface HouseBaseInfo {
 export interface HouseInfo extends HouseBaseInfo {
   intent_stime?: string; //意向登记时间开始
   intent_endtime?: string; //意向登记时间结束
-  audit_status?: number; //审核状态
+  // audit_status?: number; //审核状态
   choose_stime?: string; //选楼开始日期
   choose_endtime?: string; //选择结束日期
   reception_stime?: string; //现场接受资料时间开始

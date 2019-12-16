@@ -35,4 +35,44 @@ export async function UserRegister(info: UserInfo): Promise<UserInfo | false> {
   }
 }
 
+export async function GetUserInfo(
+  name: string,
+  token: string
+): Promise<UserInfo | false> {
+  try {
+    let result = await Axios.get<ReturnData<UserInfo>>(API.UserInfo, {
+      params: {
+        name: name,
+        token: token
+      }
+    });
+
+    if (result.data.err_code === 0) {
+      return result.data.data;
+    } else return false;
+  } catch (e) {
+    return false;
+  }
+}
+
+export async function APIGetUserList(
+  name: string,
+  token: string
+): Promise<Array<UserInfo> | false> {
+  try {
+    let result = await Axios.get<ReturnData<Array<UserInfo>>>(API.UserList, {
+      params: {
+        name: name,
+        token: token
+      }
+    });
+
+    if (result.data.err_code === 0) {
+      return result.data.data;
+    } else return false;
+  } catch (e) {
+    return false;
+  }
+}
+
 export default {};

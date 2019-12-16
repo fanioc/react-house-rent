@@ -19,6 +19,7 @@ export const API = {
   UserModify: API_BASE + "/user/modify",
   UserDel: API_BASE + "/user/delete",
   UserList: API_BASE + "/user/list",
+  UserInfo: API_BASE + "/user/info",
 
   Login: API_BASE + "/login",
   CheckToken: API_BASE + "/checktoken",
