@@ -55,7 +55,6 @@ export async function APILogin(
       return result.data.data;
     } else return false;
   } catch (e) {
-    //TODO::添加全局toast "网络错误"
     return false;
   }
 }
@@ -74,7 +73,6 @@ export async function APILoginOut(
     if (result.data.err_code === 0) return true;
     else return false;
   } catch (e) {
-    //TODO::添加全局toast
     return false;
   }
 }

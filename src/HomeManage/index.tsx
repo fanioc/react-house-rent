@@ -19,6 +19,7 @@ export default class InformationList extends React.Component {
             <Container>
               <Row>
                 <Col>
+                  {/* //TODO::16 */}
                   首页{UserInfo.right} {UserInfo.name}
                 </Col>
               </Row>

@@ -46,7 +46,6 @@ class StaffLogin extends React.Component<
         }, 1000);
       } else {
         this.AlertMsg("登入错误", "danger");
-        //TODO::登入错误
       }
     });
   }

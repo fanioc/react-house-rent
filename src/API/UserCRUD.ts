@@ -31,7 +31,6 @@ export async function UserRegister(info: UserInfo): Promise<UserInfo | false> {
       return result.data.data;
     } else return false;
   } catch (e) {
-    //TODO::添加全局toast "网络错误"
     return false;
   }
 }
