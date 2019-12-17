@@ -1,6 +1,5 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import { HouseInfo } from "../API/HouseCRUD";
 import { StaffInfo } from "../API/StaffCRUD";
 
 interface StaffListProps {

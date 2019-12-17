@@ -148,7 +148,7 @@ export default class UserIndex extends React.Component<any, UserIndexState> {
               </Row>
             </Container>
           ) : (
-            <div>对不起,无法查看</div>
+            <div>管理员用户无法购房,请转至后台管理页.</div>
           )
         }
       </ContextUser.Consumer>

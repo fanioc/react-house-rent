@@ -12,7 +12,7 @@ export interface HouseBaseInfo {
   presell_number: string; //预售证号
   build_name: string; //楼盘名
   build_id: string; //栋号
-  img_url?: string; //图片地址
+  pic_view?: string; //图片地址
   enterprise?: string; //开发企业
   house_type: string; //户型
   hotline: string; //热线电话

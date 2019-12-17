@@ -8,9 +8,10 @@ interface HouseListProps {
 }
 
 export class HouseList extends React.Component<HouseListProps, {}> {
-  constructor(props: any) {
+  constructor(props: HouseListProps) {
     super(props);
     this.state = {};
+    console.log(props);
   }
   render() {
     return (
@@ -29,7 +30,7 @@ function HouseCard(props: { HouseInfo: HouseInfo }) {
       <Card>
         <Card.Img
           className="d-block w-100"
-          src="/img/banner1.jpg"
+          src={props.HouseInfo.pic_view}
           alt="First slide"
           height="200px;"
         />
@@ -44,7 +45,7 @@ function HouseCard(props: { HouseInfo: HouseInfo }) {
 
           <Button
             as={Link}
-            to={"/manage?houserid=" + props.HouseInfo.presell_number}
+            to={"/manage?houseid=" + props.HouseInfo.presell_number}
             variant="primary"
           >
             点击预定
@@ -64,69 +65,39 @@ function HouseCard(props: { HouseInfo: HouseInfo }) {
   );
 }
 
-
-interface HouseListProps {
-  list: Array<HouseInfo>;
-}
-export class HouseBanner extends React.Component {
+export class HouseBanner extends React.Component<HouseListProps, {}> {
+  constructor(props: HouseListProps) {
+    super(props);
+    this.state = {};
+    console.log(props);
+  }
   render() {
     return (
       <Carousel>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="/img/banner1.jpg"
-            alt="First slide"
-            style={{
-              width: "auto",
-              height: "auto",
-              maxWidth: "100%",
-              maxHeight: "400px"
-            }}
-          />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="/img/banner2.jpg"
-            alt="Third slide"
-            style={{
-              width: "auto",
-              height: "auto",
-              maxWidth: "100%",
-              maxHeight: "400px"
-            }}
-          />
-
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="/img/banner3.jpg"
-            alt="Third slide"
-            style={{
-              width: "auto",
-              height: "auto",
-              maxWidth: "100%",
-              maxHeight: "400px"
-            }}
-          />
-
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {this.props.list.map((v, k) => {
+          if (k > 3) return null;
+          return (
+            <Carousel.Item>
+              <Link to={"/manage?houseid=" + v.presell_number}>
+                <img
+                  className="d-block w-100"
+                  src={v.pic_view}
+                  alt="First slide"
+                  style={{
+                    width: "auto",
+                    height: "auto",
+                    maxWidth: "100%",
+                    maxHeight: "400px"
+                  }}
+                />
+                <Carousel.Caption>
+                  <h3>{v.build_name}</h3>
+                  <p>{v.introudce}</p>
+                </Carousel.Caption>
+              </Link>
+            </Carousel.Item>
+          );
+        })}
       </Carousel>
     );
   }

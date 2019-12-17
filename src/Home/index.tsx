@@ -27,7 +27,7 @@ export default class HomeIndex extends React.Component<any, HomeState> {
       <Container>
         <Row>
           <Col xl={12} className="mt-3">
-            <HouseBanner />
+            <HouseBanner list={this.state.list} />
           </Col>
         </Row>
         <Row>
