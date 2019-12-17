@@ -17,6 +17,7 @@ import UserRegister from "./HomeManage/register";
 import ManageLogin from "./HomeManage/login";
 import Notfound from "./Notfound";
 import Header from "./common/Header";
+import HouseIssue from "./Admin/houseissue";
 import { UserInfo } from "./API/UserLogin";
 
 interface AppStore {
@@ -68,6 +69,7 @@ class App extends React.Component<any, AppStore> {
               <Route exact path="/" component={Home} />
               <Route exact path="/admin" component={Admin} />
               <Route exact path="/admin/login" component={AdminLogin} />
+              <Route exact path="/admin/issue" component={HouseIssue} />
               <Route exact path="/manage" component={HomeManage} />
               <Route exact path="/manage/login" component={ManageLogin} />
               <Route exact path="/manage/register" component={UserRegister} />

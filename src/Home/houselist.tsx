@@ -16,8 +16,8 @@ export class HouseList extends React.Component<HouseListProps, {}> {
   render() {
     return (
       <CardColumns>
-        {this.props.list.map(info => {
-          return <HouseCard HouseInfo={info} />;
+        {this.props.list.map((info, k) => {
+          return <HouseCard key={k} HouseInfo={info} />;
         })}
       </CardColumns>
     );
@@ -57,7 +57,7 @@ function HouseCard(props: { HouseInfo: HouseInfo }) {
         <Card.Footer>
           <small className="text-muted">
             选房时间：
-            {jsonDate2str(props.HouseInfo.choose_stime!).toLocaleString()}
+            {jsonDate2str(props.HouseInfo.choose_stime!).toLocaleDateString()}
           </small>
         </Card.Footer>
       </Card>
@@ -77,7 +77,7 @@ export class HouseBanner extends React.Component<HouseListProps, {}> {
         {this.props.list.map((v, k) => {
           if (k > 3) return null;
           return (
-            <Carousel.Item>
+            <Carousel.Item key={k}>
               <Link to={"/manage?houseid=" + v.presell_number}>
                 <img
                   className="d-block w-100"

@@ -3,11 +3,13 @@
  * @Date: 2019-12-06 20:07:33
  * @Description: API URL配置文件
  */
-export const API_BASE = "http://fan.xcodex.cn:8080";
+// export const API_BASE = "http://fan.xcodex.cn:8080";
+export const API_BASE = "http://localhost:8080";
 
 export const API = {
   HouseList: API_BASE + "/house/list",
   HouseIssue: API_BASE + "/house/issue",
+  HouseDel: API_BASE + "/house/del",
   HouseModify: API_BASE + "/house/modify",
 
   StaffRegister: API_BASE + "/staff/register",

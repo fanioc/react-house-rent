@@ -33,8 +33,8 @@ export class UserList extends React.Component<UserListProps, {}> {
           </tr>
         </thead>
         <tbody>
-          {this.props.list.map(info => {
-            return <UserItem UserInfo={info} />;
+          {this.props.list.map((info, k) => {
+            return <UserItem key={k} UserInfo={info} />;
           })}
         </tbody>
       </Table>
@@ -58,7 +58,7 @@ function UserItem(props: { UserInfo: UserInfo }) {
         <td>{jsonDate2str(props.UserInfo.register_time!).toLocaleString()}</td>
         <td>{props.UserInfo.house_type}</td>
         <td>{props.UserInfo.purpose_house}</td>
-        <td>{props.UserInfo.check_status}</td>
+        <td>{props.UserInfo.check_status ? "已审核" : "未审核"}</td>
       </tr>
     </>
   );

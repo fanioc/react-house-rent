@@ -6,6 +6,7 @@
 
 import Axios from "axios";
 import { ReturnData, API } from "./APIconfig";
+import qs from "qs";
 
 //基础信息
 export interface HouseBaseInfo {
@@ -41,7 +42,7 @@ export async function APIHouseIssue(
   try {
     let response = await Axios.post<ReturnData<HouseInfo>>(
       API.HouseIssue,
-      { ...info },
+      qs.stringify(info),
       {
         params: {
           name: name,
@@ -65,7 +66,24 @@ export async function APIHouseList(): Promise<HouseList | false> {
     return false;
   }
 }
-
+export async function APIHouseDel(
+  houses: Set<string>,
+  name: string,
+  token: string
+): Promise<boolean> {
+  try {
+    let result = await Axios.get<ReturnData<null>>(API.HouseDel, {
+      params: {
+        name: name,
+        token: token,
+        build_name: Array.from(houses.values())
+      }
+    });
+    return result.data.err_code === 0;
+  } catch (e) {
+    return false;
+  }
+}
 //修改
 export async function APIHouseModify(
   info: HouseInfo,

@@ -30,8 +30,8 @@ export class StaffList extends React.Component<StaffListProps, {}> {
           </tr>
         </thead>
         <tbody>
-          {this.props.list.map(info => {
-            return <StaffItem StaffInfo={info} />;
+          {this.props.list.map((info,k) => {
+            return <StaffItem key={k} StaffInfo={info} />;
           })}
         </tbody>
       </Table>

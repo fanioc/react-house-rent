@@ -1,11 +1,12 @@
 import React from "react";
-import { UserInfo } from "../API/UserCRUD";
+import { UserInfo, APIUserRegister } from "../API/UserCRUD";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { withRouter, RouteComponentProps } from "react-router";
 
 interface UserRegiserState {}
 
-export default class UserRegiser extends React.Component<
-  any,
+class UserRegiser extends React.Component<
+  RouteComponentProps<any>,
   UserRegiserState
 > {
   constructor(props: any) {
@@ -15,6 +16,14 @@ export default class UserRegiser extends React.Component<
   handleRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let today = new Date();
+    if (
+      event.currentTarget.user_password.value !==
+      event.currentTarget.repsw.value
+    ) {
+      alert("两次输入密码需要一致");
+      return;
+    }
+
     let info: UserInfo = {
       id: 0,
       name: "",
@@ -23,7 +32,7 @@ export default class UserRegiser extends React.Component<
       phone: "",
       password: "",
       right: 0,
-      register_time: today.valueOf().toString(),
+      register_time: Math.floor(today.valueOf() / 1000).toString(),
       status: 0,
       house_type: "",
       purpose_house: "",
@@ -39,8 +48,42 @@ export default class UserRegiser extends React.Component<
     info.identity_type = event.currentTarget.user_idtype.value;
     info.identity_num = event.currentTarget.user_idnum.value;
     info.purpose_house = event.currentTarget.presell.value;
+    if (info.name.length <= 3) {
+      alert("请输入正确的用户名");
+      return;
+    }
+    if (info.phone.length <= 3) {
+      alert("请输入正确的手机号");
+      return;
+    }
+    if (info.password.length <= 3) {
+      alert("请输入正确的密码");
+      return;
+    }
+    if (info.house_type.length <= 3) {
+      alert("请输入正确的房源类型");
+      return;
+    }
+    if (info.purpose_house.length <= 3) {
+      alert("请输入正确的房源编号");
+      return;
+    }
+    if (info.identity_num.length <= 3) {
+      alert("请输入正确的证件号");
+      return;
+    }
+
+    APIUserRegister(info).then(d => {
+      if (d === false) {
+        alert("注册错误");
+      } else {
+        this.props.history.push("/manage/login");
+      }
+    });
+
     console.log(info);
   }
+
   render() {
     return (
       <Container>
@@ -74,7 +117,7 @@ export default class UserRegiser extends React.Component<
               <Form.Label>密码</Form.Label>
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
-            <Form.Group as={Col}>
+            <Form.Group as={Col} controlId="repsw">
               <Form.Label>再输一次</Form.Label>
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
@@ -84,7 +127,7 @@ export default class UserRegiser extends React.Component<
             <Form.Group as={Col} md={{ span: "4" }} controlId="user_idtype">
               <Form.Label>证件类型</Form.Label>
               <Form.Control as="select">
-                <option value="身份证">身份证</option>
+                <option value="居民身份证">居民身份证</option>
                 <option value="暂住证">暂住证</option>
                 <option value="行驶证">行驶证</option>
               </Form.Control>
@@ -115,3 +158,5 @@ export default class UserRegiser extends React.Component<
     );
   }
 }
+
+export default withRouter(UserRegiser);

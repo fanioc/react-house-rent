@@ -38,7 +38,7 @@ class StaffLogin extends React.Component<
         UserState.set(data);
 
         this.AlertMsg(
-          "欢迎," + data.name! + ",员工登入成功,即将跳转管理页面...",
+          "欢迎," + data.name! + ",用户登入成功,即将跳转管理页面...",
           "success"
         );
         setTimeout(() => {

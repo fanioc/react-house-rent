@@ -5,7 +5,7 @@
  */
 import Axios from "axios";
 import { ReturnData, API } from "./APIconfig";
-
+import qs from "qs";
 export interface UserInfo {
   id: number;
   name: string;
@@ -23,11 +23,17 @@ export interface UserInfo {
   check_status: number;
 }
 
-export async function UserRegister(info: UserInfo): Promise<UserInfo | false> {
+export async function APIUserRegister(
+  info: UserInfo
+): Promise<UserInfo | false> {
   try {
-    let result = await Axios.post<ReturnData<UserInfo>>(API.UserRegister, info);
+    let result = await Axios.post<ReturnData<UserInfo>>(
+      API.UserRegister,
+      qs.stringify(info)
+    );
 
     if (result.data.err_code === 0) {
+      console.log(result.data.data);
       return result.data.data;
     } else return false;
   } catch (e) {

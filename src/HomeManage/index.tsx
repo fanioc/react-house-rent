@@ -25,6 +25,7 @@ export default class UserIndex extends React.Component<any, UserIndexState> {
       identity_num: "",
       check_status: 0
     };
+    this.handleUserInfo();
   }
 
   handleUserInfo() {
@@ -52,7 +53,6 @@ export default class UserIndex extends React.Component<any, UserIndexState> {
             </Container>
           ) : UserInfo.right === 0 ? (
             <Container>
-              {this.handleUserInfo()}
               <Row>
                 <Col>
                   <h1 className="font-weight-bold text-center mt-5 mb-5">
